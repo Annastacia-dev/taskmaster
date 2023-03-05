@@ -1,29 +1,22 @@
 import { SignIn } from './components/auth/SignIn'
 import Home from './components/Home';
 import { Routes, Route } from 'react-router-dom';
-import { auth } from './config/firebase';
-import { useState, useEffect } from 'react'
+import { useContext} from 'react'
+import { UserContext } from './contexts/user'
+
 
 
 function App() {
 
-  const [user, setUser] = useState(null)
+  const { user } = useContext(UserContext)
 
-  useEffect(() => {
-    setUser(auth.currentUser)
-  })
-
-
-
-
-  if (user === null)  return <SignIn setUser={setUser} />
-
+  if (user === null)  return <SignIn  />
 
 
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home setUser={setUser} />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </div>
   );

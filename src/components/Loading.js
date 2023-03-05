@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Logo from "./Logo";
 
-const LoadingBar = () => {
+const Loading = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ const LoadingBar = () => {
   );
 };
 
-export default LoadingBar;
+export default Loading;

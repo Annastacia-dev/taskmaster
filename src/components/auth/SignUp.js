@@ -1,19 +1,23 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { auth, googleProvider } from '../../config/firebase'
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import Logo from '../Logo';
 import Loading from '../Loading';
 import { FcGoogle } from 'react-icons/fc'
+import { UserContext } from '../../contexts/user'
 
 
 
-export const SignUp = ({ setShowSignIn, setUser }) => {
+export const SignUp = ({ setShowSignIn }) => {
+    
+    const { setUser } = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [emailError, setEmailError] = useState('')
+   
 
     const handleSignUp = async () => {
         setLoading(true)

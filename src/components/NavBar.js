@@ -5,13 +5,16 @@ import Loading from './Loading';
 import { useState } from 'react'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { GrFormClose } from 'react-icons/gr'
+import { useContext } from 'react'
+import { UserContext } from '../contexts/user'
 
-const NavBar = ({ setUser }) => {
+const NavBar = () => {
+
+    const {  setUser } = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
     const [toggleModal, setToggleModal] = useState(false)
     const [dropdown, setDropdown] = useState(false)
-    const [nav, setNav] = useState(false)
 
     
     const handleSignOut = async () => {

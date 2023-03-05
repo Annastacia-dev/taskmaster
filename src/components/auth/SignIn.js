@@ -1,21 +1,25 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { auth, googleProvider } from '../../config/firebase'
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import Logo from '../Logo';
 import { SignUp } from './SignUp';
 import { FcGoogle } from 'react-icons/fc'
 import Loading from '../Loading';
+import { UserContext } from '../../contexts/user'
 
 
 
-export const SignIn = ({ setUser }) => {
+
+export const SignIn = () => {
+
+    const { setUser } = useContext(UserContext)
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showSignIn, setShowSignIn] = useState(true)
     const [loading, setLoading] = useState(false)
 
-    console.log(auth)
+  
    
 
     const handleSignIn = async () => {
@@ -67,7 +71,7 @@ export const SignIn = ({ setUser }) => {
          </div>
       ) : (
         
-        <SignUp setShowSignIn={setShowSignIn} setUser={setUser} />
+        <SignUp setShowSignIn={setShowSignIn}/>
       )
     }
     </>
