@@ -1,11 +1,29 @@
-import React from 'react'
+import { useState, useEffect } from "react";
+import Logo from "./Logo";
 
-function Loading() {
+const LoadingBar = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (progress < 100) {
+        setProgress(progress + 10);
+      }
+    }, 500);
+    return () => clearInterval(interval);
+  }, [progress]);
+
   return (
-    <div className='flex flex-col gap-3 justify-center items-center w-screen h-screen bg-gradient-to-r from-blue-900 to-blue-500 '>
-        <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-yellow-300"></div>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-800">
+      <Logo />
+      <div className="h-1 w-1/3 bg-gray-200 rounded-full">
+        <div
+          className="h-full bg-yellow-300 rounded-full"
+          style={{ width: `${progress}%` }}
+        ></div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Loading
+export default LoadingBar;

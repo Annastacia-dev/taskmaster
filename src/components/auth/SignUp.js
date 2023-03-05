@@ -67,8 +67,9 @@ export const SignUp = ({ setShowSignIn, setUser }) => {
 
 
   return (
-    <div className='flex flex-col gap-3 justify-center items-center w-screen h-screen bg-gradient-to-r from-blue-900 to-blue-500 '>
+    <div className='flex flex-col gap-3 justify-center items-center w-screen h-screen bg-gray-800'>
         <Logo />
+        <div className='flex flex-col gap-10'>
         <input 
         placeholder='Enter your email' 
         value={email} 
@@ -77,7 +78,7 @@ export const SignUp = ({ setShowSignIn, setUser }) => {
           setEmail(e.target.value)
           validateEmail(e)
         }} 
-        className={`border-b-2 bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+        className={`border rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
         ${emailError ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
         `} required />
 
@@ -91,19 +92,21 @@ export const SignUp = ({ setShowSignIn, setUser }) => {
           setPassword(e.target.value)
           validatePassword(e)
         }}
-        className={`border-b-2 bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+        className={`border rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
         ${passwordError ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
         `} />
 
+        </div>
+
         {passwordError && <p className='text-yellow-300 text-sm'>{passwordError}</p>}
         
-        <button className='bg-yellow-300 text-blue-900 font-bold py-2 px-6 mt-5 rounded hover:text-yellow-300 hover:bg-blue-900' onClick={handleSignUp}>Sign Up</button>
+        <button className='bg-yellow-300 text-gray-800 font-bold py-2 px-6 mt-5 rounded hover:border-yellow-300 hover:border hover:bg-transparent hover:text-yellow-300' onClick={handleSignUp}>Sign Up</button>
 
         <hr className='border-1 border-blue-200 w-1/2' />
 
         <p className='text-white text-sm'>Or sign up with</p>
 
-        <button className='bg-blue-900 text-white font-bold py-2 px-6 mt-5 rounded hover:text-blue-900 hover:bg-yellow-300' onClick={signUpWithGoogle}><FcGoogle /></button>
+        <button className='py-2 px-6 mt-5 rounded hover:border-yellow-300 hover:border hover:bg-transparent bg-yellow-300' onClick={signUpWithGoogle}><FcGoogle /></button>
 
         
         <p className='text-white text-sm mt-3'>Already have an account? <span className='text-yellow-300 cursor-pointer' onClick={() => setShowSignIn(true)}>Sign In</span></p>
