@@ -1,9 +1,30 @@
-import { Auth } from './components/Auth'
+import { SignIn } from './components/auth/SignIn'
+import Home from './components/Home';
+import { Routes, Route } from 'react-router-dom';
+import { auth } from './config/firebase';
+import { useState, useEffect } from 'react'
+
 
 function App() {
+
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    setUser(auth.currentUser)
+  })
+
+
+
+
+  if (user === null)  return <SignIn setUser={setUser} />
+
+
+
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Auth />
+    <div>
+      <Routes>
+        <Route path="/" element={<Home setUser={setUser} />} />
+      </Routes>
     </div>
   );
 }
