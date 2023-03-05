@@ -10,7 +10,8 @@ import { UserContext } from '../contexts/user'
 
 const NavBar = () => {
 
-    const {  setUser } = useContext(UserContext)
+    const { setUser } = useContext(UserContext)
+
 
     const [loading, setLoading] = useState(false)
     const [toggleModal, setToggleModal] = useState(false)
@@ -44,9 +45,13 @@ const NavBar = () => {
 
     console.log(auth)
 
-    const username = auth.currentUser.displayName
+    const { displayName, photoURL } = auth?.currentUser || {
+        displayName: 'Guest',
+        photoURL: 'https://i.imgur.com/6VBx3io.png'
+    }
 
-    const firstName = username.split(' ')[0]
+
+    const firstName = displayName.split(' ')[0]
 
     console.log(firstName)
 
@@ -74,7 +79,7 @@ const NavBar = () => {
                         <button className='border rounded flex items-center justify-center px-4 py-2 gap-2 text-white hover:text-gray-800 hover:bg-white'
                         onClick={handleToggleDropdown}
                         >
-                            <BsFillPersonFill className="h-6 w-6" />
+                            <img src={photoURL} alt="user" className='w-8 h-8 rounded-full' />
                             <p className="text-sm">{firstName.toLocaleUpperCase()}</p>
                             {dropdown && (
                                 <>
@@ -119,7 +124,7 @@ const NavBar = () => {
                         <div className="sm:flex gap-2 sm:items-center sm:justify-center">
                             <BsFillPersonFill className="h-5 w-15" />
                             <p className="text-center text-sm text-gray-900">
-                                {username}
+                                {displayName}
                             </p>
                         </div>
                         <div className="sm:flex sm:items-center sm:justify-center">

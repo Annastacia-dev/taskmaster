@@ -5,6 +5,8 @@ import Logo from '../Logo';
 import Loading from '../Loading';
 import { FcGoogle } from 'react-icons/fc'
 import { UserContext } from '../../contexts/user'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -17,6 +19,18 @@ export const SignUp = ({ setShowSignIn }) => {
     const [password, setPassword] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [emailError, setEmailError] = useState('')
+
+    const toastStyle = {
+      position : 'top-center',
+      autoClose : 3000,
+      hideProgressBar : true,
+      closeOnClick : true,
+      pauseOnHover : true,
+      draggable : true,
+      progress : undefined,
+      theme: 'colored'
+    }
+
    
 
     const handleSignUp = async () => {
@@ -28,6 +42,9 @@ export const SignUp = ({ setShowSignIn }) => {
         } catch (error) {
           setLoading(false)
           console.error(error)
+          if (error.code === 'auth/email-already-in-use'){
+            toast.error('Email already in use', toastStyle)
+          }
         }
     }
 
@@ -71,6 +88,8 @@ export const SignUp = ({ setShowSignIn }) => {
 
 
   return (
+    <>
+    <ToastContainer />
     <div className='flex flex-col gap-3 justify-center items-center w-screen h-screen bg-gray-800'>
         <Logo />
         <div className='flex flex-col gap-10'>
@@ -86,7 +105,7 @@ export const SignUp = ({ setShowSignIn }) => {
         ${emailError ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
         `} required />
 
-        {emailError && <p className='text-yellow-300 text-sm'>{emailError}</p>}
+        {emailError && <p className='text-red-500 text-sm text-center'>{emailError}</p>}
 
         <input 
         placeholder='Enter your password' 
@@ -102,7 +121,7 @@ export const SignUp = ({ setShowSignIn }) => {
 
         </div>
 
-        {passwordError && <p className='text-yellow-300 text-sm'>{passwordError}</p>}
+        {passwordError && <p className='text-red-500 text-sm text-center'>{passwordError}</p>}
         
         <button className='bg-yellow-300 text-gray-800 font-bold py-2 px-6 mt-5 rounded hover:border-yellow-300 hover:border hover:bg-transparent hover:text-yellow-300' onClick={handleSignUp}>Sign Up</button>
 
@@ -116,6 +135,8 @@ export const SignUp = ({ setShowSignIn }) => {
         <p className='text-white text-sm mt-3'>Already have an account? <span className='text-yellow-300 cursor-pointer' onClick={() => setShowSignIn(true)}>Sign In</span></p>
       
     </div>
+
+    </>
   )
 }
 
