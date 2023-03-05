@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react'
 import { auth, googleProvider } from '../../config/firebase'
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
 import Logo from '../Logo';
 import Loading from '../Loading';
 import { FcGoogle } from 'react-icons/fc'
@@ -15,10 +15,12 @@ export const SignUp = ({ setShowSignIn }) => {
     const { setUser } = useContext(UserContext)
 
     const [loading, setLoading] = useState(false)
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [emailError, setEmailError] = useState('')
+    const [nameError, setNameError] = useState('')
 
     const toastStyle = {
       position : 'top-center',
@@ -37,6 +39,7 @@ export const SignUp = ({ setShowSignIn }) => {
         setLoading(true)
         try{
           await createUserWithEmailAndPassword(auth, email, password)
+          await updateProfile(auth.currentUser, { displayName: name })
           setUser(auth.currentUser)
         setLoading(false)
         } catch (error) {
@@ -60,10 +63,6 @@ export const SignUp = ({ setShowSignIn }) => {
       }
     }
 
-
-
-
-
     if (loading) {
         return <Loading />
     }
@@ -85,14 +84,34 @@ export const SignUp = ({ setShowSignIn }) => {
       }
     }
 
-
+    // Validate name, not empty more than 2 characters
+    const validateName = (e) => {
+      if (e.target.value.length < 2) {
+        setNameError('Name must be at least 2 characters')
+      } else {
+        setNameError('');
+      }
+    }
 
   return (
     <>
     <ToastContainer />
     <div className='flex flex-col gap-3 justify-center items-center w-screen h-screen bg-gray-800'>
         <Logo />
-        <div className='flex flex-col gap-10'>
+        <input 
+        placeholder='Enter your name' 
+        value={name} 
+        type="text" 
+        onChange={e => {
+          setName(e.target.value)
+          validateName(e)
+        }} 
+        className={`border mb-5 rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+         focus:border-yellow-300 ${nameError ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
+         `} required />
+
+         {nameError && <p className='text-red-500 text-sm text-center'>{nameError}</p>}
+
         <input 
         placeholder='Enter your email' 
         value={email} 
@@ -101,7 +120,7 @@ export const SignUp = ({ setShowSignIn }) => {
           setEmail(e.target.value)
           validateEmail(e)
         }} 
-        className={`border rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+        className={`border mb-5 rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
         ${emailError ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
         `} required />
 
@@ -115,11 +134,9 @@ export const SignUp = ({ setShowSignIn }) => {
           setPassword(e.target.value)
           validatePassword(e)
         }}
-        className={`border rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+        className={`border rounded mt-5 bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
         ${passwordError ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
         `} />
-
-        </div>
 
         {passwordError && <p className='text-red-500 text-sm text-center'>{passwordError}</p>}
         

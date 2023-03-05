@@ -104,7 +104,6 @@ export const SignIn = () => {
         <ToastContainer />
         <div className='flex flex-col gap-3 justify-center items-center w-screen h-screen bg-gray-800'>
             <Logo />
-            <div className='flex flex-col gap-10'>
               <input 
               placeholder='Enter your email' 
               value={email} type="text" 
@@ -112,7 +111,7 @@ export const SignIn = () => {
                 setEmail(e.target.value)
                 validateEmail(e.target.value)
                 }} 
-                className={`border rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+                className={`border mb-5 rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
                 ${emailErrors.length > 0 ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
                 `} 
                 required />
@@ -130,11 +129,10 @@ export const SignIn = () => {
                 setPassword(e.target.value)
                 validatePassword(e.target.value)
               }} 
-              className={`border rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+              className={`border mt-5 rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
               ${passwordErrors.length > 0 ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
               `} 
               required />
-            </div>
 
             {passwordErrors && passwordErrors.length > 0 && passwordErrors.map((error, index) => (
               <p className='text-red-400 text-sm text-center' key={index}>{error}</p>

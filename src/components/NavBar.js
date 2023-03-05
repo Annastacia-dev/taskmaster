@@ -1,4 +1,4 @@
-import { auth } from '../config/firebase'
+import { auth, db } from '../config/firebase'
 import { signOut } from "firebase/auth";
 import Logo from './Logo';
 import Loading from './Loading';
@@ -43,20 +43,14 @@ const NavBar = () => {
         return <Loading />
     }
 
-    console.log(auth)
 
     const { displayName, photoURL } = auth?.currentUser || {
         displayName: 'Guest',
-        photoURL: 'https://i.imgur.com/6VBx3io.png'
+        photoURL: 'https://png.pngtree.com/png-clipart/20220904/ourmid/pngtree-human-profile-avatar-ui-button-3d-icon-render-png-image_6137257.png'
     }
 
 
-    const firstName = displayName.split(' ')[0]
-
-    console.log(firstName)
-
-
-
+    const firstName = displayName?.split(' ')[0]
 
   return (
     <>
@@ -79,8 +73,8 @@ const NavBar = () => {
                         <button className='border rounded flex items-center justify-center px-4 py-2 gap-2 text-white hover:text-gray-800 hover:bg-white'
                         onClick={handleToggleDropdown}
                         >
-                            <img src={photoURL} alt="user" className='w-8 h-8 rounded-full' />
-                            <p className="text-sm">{firstName.toLocaleUpperCase()}</p>
+                            <img src={photoURL ? photoURL : "https://png.pngtree.com/png-clipart/20220904/ourmid/pngtree-human-profile-avatar-ui-button-3d-icon-render-png-image_6137257.png"} alt="user" className='w-8 h-8 rounded-full' />
+                            <p className="text-sm">{firstName?.toLocaleUpperCase()}</p>
                             {dropdown && (
                                 <>
                                 <div class="relative inline-block text-left">
