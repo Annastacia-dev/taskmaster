@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { auth, googleProvider } from '../../config/firebase'
+import { auth, googleProvider, db } from '../../config/firebase'
 import { createUserWithEmailAndPassword, signInWithPopup, updateProfile } from "firebase/auth";
 import Logo from '../Logo';
 import Loading from '../Loading';
@@ -40,13 +40,25 @@ export const SignUp = ({ setShowSignIn }) => {
         try{
           await createUserWithEmailAndPassword(auth, email, password)
           await updateProfile(auth.currentUser, { displayName: name })
-          setUser(auth.currentUser)
-        setLoading(false)
+          await db.collection('users').doc(auth.currentUser.uid).set({
+            name: name,
+            email: email,
+            id: auth.currentUser.uid,
+            password: password
+          })
+          setUser(auth.currentUser)  
+          setLoading(false)
         } catch (error) {
           setLoading(false)
           console.error(error)
           if (error.code === 'auth/email-already-in-use'){
             toast.error('Email already in use', toastStyle)
+          } else if (error.code === 'auth/invalid-email') {
+            toast.error('Invalid email', toastStyle)
+          } else if (error.code === 'auth/weak-password') {
+            toast.error('Password must be at least 6 characters', toastStyle)
+          } else {
+            toast.error('SignUp failed', toastStyle)
           }
         }
     }
@@ -120,7 +132,7 @@ export const SignUp = ({ setShowSignIn }) => {
           setEmail(e.target.value)
           validateEmail(e)
         }} 
-        className={`border mb-5 rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
+        className={`border mt-5 mb-5 rounded bg-transparent placeholder:text-center placeholder:text-white placeholder:text-sm  border-blue-200 p-2 focus:outline-none focus:placeholder:text-transparent focus:text-center caret-white focus:text-white text-center text-white 
         ${emailError ? 'border-red-400 focus:border-red-400' : 'border-blue-200 focus:border-yellow-300'}
         `} required />
 
