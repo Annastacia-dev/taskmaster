@@ -212,7 +212,8 @@ const Home = () => {
                           <span> 
                             {labels.map(label => label.id === task.labelId && 
                             <div className='flex justify-center items-center'>
-                              <span key={label.id} className={`absolute inline-block text-xs w-32 text-center font-semibold -right-20 text-black px-2 py-1 ml-3 bg-${label.color}`}>
+                              <span key={label.id} className={`absolute inline-block text-xs w-32 text-center font-semibold -right-20 text-black px-2 py-1 ml-3 
+                               bg-${label.color ? label.color : 'blue-300'}`}>
                                  <i className={`${label.icon} mr-2`}></i>
                                 {label.name}</span>
                               
