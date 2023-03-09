@@ -132,7 +132,7 @@ const Home = () => {
 
     try {
       await setDoc(taskRef, updatedTask)
-      toast.success('Task marked completed', toastStyles)
+      taskData.completed ? toast.success('Task marked as incomplete', toastStyles) : toast.success('Task marked as complete', toastStyles)
       window.location.reload()
     } catch (error) {
       console.log(error)
