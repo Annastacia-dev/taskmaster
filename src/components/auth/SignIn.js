@@ -62,6 +62,11 @@ export const SignIn = () => {
         setLoading(false)
       } catch (error) {
         console.error(error)
+        if (error.code === 'auth/account-exists-with-different-credential') {
+          toast.error('Email already in use', toastStyle)
+        } else {
+          toast.error('SignIn failed, try again', toastStyle)
+        }
         setLoading(false)
       }
     }
