@@ -84,7 +84,7 @@ const NewTaskModal = ( { setShowModal }) => {
                   <GrFormClose className="w-6 h-6" />
                 </button>
                 </div>
-                <div className="mt-4">
+                <form className="mt-4">
                   <label className="block text-sm text-gray-700">Title</label>
                   <input type="text" name="title" placeholder="Enter task title" value={formData.title}
                   className="w-full p-2 my-2 border border-gray-300  focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-transparent placeholder:text-center" onChange={handleChanges} />
@@ -115,7 +115,7 @@ const NewTaskModal = ( { setShowModal }) => {
                       Add Task
                     </button>
                     </div>
-                    </div>
+                    </form>
                     </div>
                     </div>
   )

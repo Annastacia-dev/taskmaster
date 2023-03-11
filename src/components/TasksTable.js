@@ -7,6 +7,7 @@ import { AiOutlineCheckCircle, AiTwotoneEdit, AiOutlineLoading3Quarters, AiTwoto
 import { ToastContainer, toast } from 'react-toastify';
 import EditTaskModal from './EditTaskModal';
 import DeleteTaskModal from './DeleteTaskModal';
+import formatDate  from './utils/formatDate';
 
 
 const Table = () => {
@@ -50,7 +51,8 @@ const Table = () => {
       fetchTasks()
     }, [])
 
-    const handleCompletedTask = async (id) => {
+    const handleCompletedTask = async (e, id) => {
+        e.preventDefault()
         const taskRef = doc(db, 'tasks', id)
         const taskSnapshot = await getDoc(taskRef)
         const taskData = taskSnapshot.data()
@@ -97,6 +99,9 @@ const Table = () => {
                       Priority
                     </th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-yellow-300 uppercase tracking-wider">
+                        Due Date
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-yellow-300 uppercase tracking-wider">
                       Label
                     </th>
                     <th scope="col" className="relative px-6 py-3">
@@ -116,16 +121,19 @@ const Table = () => {
                                 
                                             {task.completed ? ( <AiOutlineCheckCircle />) : (<AiOutlineLoading3Quarters />)}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <td className="px-6 py-4 whitespace-nowrap text-xs">
                                             {task.title}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <td className="px-6 py-4 whitespace-nowrap text-xs">
                                             {task.description}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <td className="px-6 py-4 whitespace-nowrap text-xs">
                                     {priorities.map(priority => priority.name === task.priority && <span key={priority.name} className={`inline-block px-2 py-1 text-xs font-semibold leading-tight text-${priority.color} bg-gray-800 rounded-full`}>{priority.name}</span>)}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <td className="px-6 py-4 whitespace-nowrap text-xs">
+                                          {formatDate(task.dueDate)}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-xs">
                                     {labels.map(label => label.id === task.labelId && 
                                     <span key={label.id} className={`inline-block px-2 py-1 text-xs font-semibold leading-tight`}>
                                     <i className={`${label.icon} mr-2`}></i>
