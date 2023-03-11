@@ -26,8 +26,7 @@ const UserProvider = ({ children }) => {
         }
         fetchLabels()
       }, [])
-    
-      console.log(labels)
+
     
     return (
         <UserContext.Provider value={{ user, setUser , labels, setLabels, priorities }}>

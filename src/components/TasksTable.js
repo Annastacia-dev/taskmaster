@@ -1,7 +1,7 @@
 import { useEffect , useState, useContext } from 'react'
 import { UserContext } from '../contexts/user';
 import { auth, db } from '../config/firebase';
-import { collection, getDocs, setDoc, deleteDoc, getDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, setDoc, getDoc, doc } from 'firebase/firestore';
 import Loading from './Loading';
 import { AiOutlineCheckCircle, AiTwotoneEdit, AiOutlineLoading3Quarters, AiTwotoneDelete }  from 'react-icons/ai'
 import { ToastContainer, toast } from 'react-toastify';
@@ -28,6 +28,8 @@ const Table = () => {
 
     const [tasks, setTasks] = useState([])
     const [loading, setLoading] = useState(false)
+
+    const [selectedTask, setSelectedTask] = useState(null)
 
     const [showEditModal, setShowEditModal] = useState(false)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
@@ -107,7 +109,8 @@ const Table = () => {
                 </thead>
                 <tbody >
                 {
-                        filteredTasks.length > 0 ? filteredTasks.map(task => (
+                        filteredTasks.length > 0 ? filteredTasks.map(task => {
+                            return (
                             <tr key={task.id}  className={`${task.completed ? 'bg-gray-900' : 'bg-gray-700'} text-white cursor-pointer hover:bg-yellow-300 hover:text-black ${task.completed && 'line-through'}`} title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}>
                                 <td className="px-6 py-4 whitespace-nowrap text-sm"   onClick={() => handleCompletedTask(task.id)} title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}>
                                 
@@ -131,19 +134,25 @@ const Table = () => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <button className="text-blue-300 hover:text-blue-600" 
-                                    onClick = {() => setShowEditModal(!showEditModal)}
+                                    onClick = {() => {
+                                        setShowEditModal(!showEditModal)
+                                        setSelectedTask(task)
+                                    }}
                                     >
                                         < AiTwotoneEdit title='Edit Task' />
                                     </button>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button className="text-red-600 hover:text-red-900" onClick = {() => setShowDeleteModal(!showDeleteModal)}>
+                                    <button className="text-red-600 hover:text-red-900" onClick = {() => {
+                                        setShowDeleteModal(!showDeleteModal)
+                                        setSelectedTask(task)
+                                        }}>
                                         <AiTwotoneDelete title='Delete Task' />
                                     </button>
-                                </td>
-
+                                </td>     
                             </tr>
-                        )) : ( 
+                            
+                            )}) : ( 
                             <>
                             <tr className="bg-gray-300">
                                 <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -151,18 +160,19 @@ const Table = () => {
                                 </td>
                             </tr>
                             </>
+                            
                         )
                     }
-                  
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-
-      {showEditModal && <EditTaskModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} />}
-      {showDeleteModal && <DeleteTaskModal showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} />}
+        
+        {showEditModal && <EditTaskModal showEditModal={showEditModal} setShowEditModal={setShowEditModal} task={selectedTask} />}
+        {showDeleteModal && <DeleteTaskModal showDeleteModal={showDeleteModal} setShowDeleteModal=
+        {setShowDeleteModal} task={selectedTask} />}
     </div>
     </>
   );
