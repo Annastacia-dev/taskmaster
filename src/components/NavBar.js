@@ -54,46 +54,45 @@ const NavBar = () => {
 
   return (
     <>
-    <nav className="bg-gray-900">
-    <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16">
-            <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center justify-center mt-5">
-                    <Logo className='mt-2' />
-                </div>
-            </div>
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <div className="ml-3 relative">
-                    <div>
-                        <button className='border rounded flex items-center justify-center px-4 py-2 gap-2 text-white hover:text-gray-800 hover:bg-white'
-                        onClick={handleToggleDropdown}
-                        >
-                            <img src={photoURL ? photoURL : "https://png.pngtree.com/png-clipart/20220904/ourmid/pngtree-human-profile-avatar-ui-button-3d-icon-render-png-image_6137257.png"} alt="user" className='w-8 h-8 rounded-full' />
-                            <p className="text-sm">{firstName?.toLocaleUpperCase()}</p>
-                            {dropdown && (
-                                <>
-                                <div class="relative inline-block text-left">
-                                    <div class="absolute -right-5  top-10 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                                        <div class="py-1" role="none">
-                                            <a href="/profile" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Your Profile</a>
-                                            <a href="/settings" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Settings</a>
-                                            <a href="/help" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Help</a>
-                                        </div>
-                                        <div class="py-1" role="none">
-                                            <button onClick={handleToggleModal} class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                </>
-                            )}
-                        </button>
-                    </div>
-                </div>
-            </div>
+ <nav className="bg-gray-900">
+  <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+    <div className="relative flex items-center justify-between h-16">
+      <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+        <div className="flex-shrink-0 flex items-center justify-center mt-5">
+          <Logo className='mt-2' />
         </div>
+      </div>
+      <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+        <div className="ml-3 relative">
+          <div>
+            <button className='border rounded flex items-center justify-center px-4 py-2 gap-2 text-white hover:text-gray-800 hover:bg-white'
+              onClick={handleToggleDropdown}
+            >
+              <img src={photoURL ? photoURL : "https://png.pngtree.com/png-clipart/20220904/ourmid/pngtree-human-profile-avatar-ui-button-3d-icon-render-png-image_6137257.png"} alt="user" className='w-8 h-8 rounded-full' />
+              <p className="text-sm">{firstName?.toLocaleUpperCase()}</p>
+              {dropdown && (
+                <>
+                  <div class="relative inline-block text-left">
+                    <div class="absolute -right-5 top-10 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                      <div class="py-1" role="none">
+                        <a href="/profile" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Your Profile</a>
+                        <a href="/settings" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Settings</a>
+                        <a href="/help" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">Help</a>
+                      </div>
+                      <div class="py-1" role="none">
+                        <button onClick={handleToggleModal} class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    </nav>
+  </div>
+</nav>
     {
         toggleModal && (
             <div className="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
