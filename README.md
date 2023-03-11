@@ -1,10 +1,41 @@
-# Getting Started with Create React App
+# TaskMaster 
+
+## Overview
+Task master is a task management web application that allows users to create tasks, update them and also delete.
+A task has a title, description, priority (low, medium or high), due date and a label (personal, finance etc)
+Task master uses firebase for authentication, database and hosting.
+
+## Live Demo
+(TaskMaster)[https://taskmaster-jade.vercel.app/]
+
+## Features
+- User can create an account
+- User can login
+- User can create a task
+- User can update a task
+- User can delete a task
+- User can view all tasks
+
+
+## Technologies
+- React
+- Firebase
+- Tailwind CSS
+
+# Getting Started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+To get started clone this repository `git clone git@github.com:Annastacia-dev/taskmaster.git`
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+Installs all the dependencies in the local node_modules folder.\
+This is required before you can run the app.
+
 
 ### `npm start`
 
