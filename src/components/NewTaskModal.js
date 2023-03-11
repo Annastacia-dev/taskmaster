@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { auth, db } from '../config/firebase';
 import { collection, addDoc } from "firebase/firestore";
 import { GrFormClose } from 'react-icons/gr'
