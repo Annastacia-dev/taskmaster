@@ -71,6 +71,9 @@ export const SignUp = ({ setShowSignIn }) => {
         setLoading(false)
       } catch (error) {
         console.log(error)
+        if (error.code === 'auth/unauthorized-domain'){
+          toast.error ('Unable to sign in with Google at the moment', toastStyle)
+        }
         setLoading(false)
       }
     }

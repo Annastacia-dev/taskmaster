@@ -64,7 +64,10 @@ export const SignIn = () => {
         console.error(error)
         if (error.code === 'auth/account-exists-with-different-credential') {
           toast.error('Email already in use', toastStyle)
-        } else {
+        } else if (error.code === 'auth/unauthorized-domain'){
+          toast.error ('Unable to sign in with Google at the moment', toastStyle)
+        }
+         else {
           toast.error('SignIn failed, try again', toastStyle)
         }
         setLoading(false)
