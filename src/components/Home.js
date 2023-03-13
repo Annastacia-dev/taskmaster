@@ -17,7 +17,7 @@ const Home = () => {
           Add Task
         </button>
       </div>
-      <div className="flex justify-center mt-10 border-b border-gray-900">
+      <div className="flex justify-center gap-10 mt-10 border-b border-gray-900">
           <h1 className="text-md mb-4 text-yellow-300 font-medium uppercase tracking-wider text-center">Tasks</h1>
       </div>
       <div className="container mx-auto px-4 mt-10">

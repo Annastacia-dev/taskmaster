@@ -247,7 +247,11 @@ const TasksTable = () => {
                 {
                         filteredTasks.length > 0 ? filteredTasks.map(task => {
                             return (
-                            <tr key={task.id}  className={`${task.completed ? 'bg-gray-900' : 'bg-gray-700'} text-white cursor-pointer hover:bg-yellow-300 hover:text-black ${task.completed && 'line-through'}`} title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}>
+                            <tr key={task.id}  className={`
+                          ${task.completed && new Date(task.dueDate) < new Date() ? 'bg-green-900' : task.completed && new Date(task.dueDate) > new Date() ? 'bg-green-900' : !task.completed && new Date(task.dueDate) < new Date() ? 'bg-red-900' : 'bg-gray-800'}
+                            text-white cursor-pointer hover:bg-yellow-300 hover:text-black ${task.completed && 'line-through'}
+                            `} title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}>
+
                                 <td className="px-6 py-4 whitespace-nowrap text-sm"   onClick={() => handleCompletedTask(task.id)} title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}>
                                 
                                             {task.completed ? ( <AiOutlineCheckCircle className='w-5 h-5' />) : (<AiOutlineLoading3Quarters />)}
