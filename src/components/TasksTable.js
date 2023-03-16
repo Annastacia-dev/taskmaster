@@ -248,16 +248,23 @@ const TasksTable = () => {
                         filteredTasks.length > 0 ? filteredTasks.map(task => {
                             return (
                             <tr key={task.id}  className={`
-                          ${task.completed && new Date(task.dueDate) < new Date() ? 'bg-green-900' : task.completed && new Date(task.dueDate) > new Date() ? 'bg-green-900' : !task.completed && new Date(task.dueDate) < new Date() ? 'bg-red-900' : 'bg-gray-800'}
+                          ${task.completed && new Date(task.dueDate) < new Date() ? 'bg-green-900' : task.completed && new Date(task.dueDate) > new Date() ? 'bg-green-900' : !task.completed && new Date(task.dueDate) < new Date() ? 'bg-red-900' : 'bg-gray-900'}
                             text-white cursor-pointer hover:bg-yellow-300 hover:text-black ${task.completed && 'line-through'}
                             `} title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}>
 
                                 <td className="px-6 py-4 whitespace-nowrap text-sm"   onClick={() => handleCompletedTask(task.id)} title={task.completed ? 'Mark as incomplete' : 'Mark as complete'}>
-                                
-                                            {task.completed ? ( <AiOutlineCheckCircle className='w-5 h-5' />) : (<AiOutlineLoading3Quarters />)}
+                                {task.completed ? ( <AiOutlineCheckCircle className='w-5 h-5' />) : (<AiOutlineLoading3Quarters />)}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-xs">
+                                <td className="relative px-6 py-4 whitespace-nowrap text-xs">
                                             {task.title}
+                                            {
+                                !task.completed && new Date(task.dueDate) < new Date() ? (
+                                  <div className="absolute -top-1 -right-2">
+                                    <span className="inline-flex items-center justify-center h-3 w-3 rounded-full text-xs bg-red-500 animate-ping">
+                                    </span>
+                                  </div>
+                                ) : null
+                              }
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-xs">
                                             {task.description}
@@ -286,7 +293,7 @@ const TasksTable = () => {
                                     </button>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <button className="text-red-600 hover:text-red-900" onClick = {() => {
+                                    <button className="text-red-300 hover:text-red-600" onClick = {() => {
                                         setShowDeleteModal(!showDeleteModal)
                                         setSelectedTask(task)
                                         }}>

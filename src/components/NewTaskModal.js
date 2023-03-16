@@ -14,6 +14,8 @@ const NewTaskModal = ( { setShowModal }) => {
 
     const [loading, setLoading] = useState(false)
 
+    const [dateError, setDateError] = useState('')
+
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -40,7 +42,19 @@ const NewTaskModal = ( { setShowModal }) => {
         })
       }
 
-        if (loading) return <Loading />
+      const validateDueDate = (dueDate) => {
+        const today = new Date()
+        const date = new Date(dueDate)
+        if (date < today) {
+          setDateError('Due date cannot be in the past')
+          return false
+        } else {
+          setDateError('')
+          return true
+        }
+      }
+
+    if (loading) return <Loading />
 
     const handleAddTask = async (e) => {
         e.preventDefault()
@@ -91,9 +105,13 @@ const NewTaskModal = ( { setShowModal }) => {
                   <label className="block text-sm text-gray-700">Description</label>
                   <input type="text" name="description" placeholder="Enter task description" value={formData.description}
                   className="w-full p-2 my-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-transparent placeholder:text-center" onChange={handleChanges} />
-                  <label className="block text-sm text-gray-700">Due Date</label>
+                  <label className="block text-sm text-gray-700">Due Date{dateError && <p className="text-xs text-red-500">{dateError}</p>}</label>
                   <input type="date" name="dueDate" placeholder="Enter task due date" value={formData.dueDate}
-                  className="w-full p-2 my-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-transparent placeholder:text-center" onChange={handleChanges} />
+                  className="w-full p-2 my-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-transparent placeholder:text-center" onChange={(e) => {
+                    const newDate = e.target.value
+                    validateDueDate(newDate)
+                    handleChanges(e)
+                  }} />
                   <label className="block text-sm text-gray-700">Priority</label>
                   <select name="priority" value={formData.priority} className="w-full p-2 my-2 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-transparent placeholder:text-center" onChange={handleChanges}>
                     <option value="">Select Priority</option>
